@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javax.swing.filechooser.FileSystemView;
 
 import ch.logvidmi.explorer.tools.ImageGenerator;
+import javafx.event.EventType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.ImageView;
 
@@ -66,6 +67,16 @@ public class FileTreeNode extends TreeItem<String> {
 		}
 		rootNode.isExpanded();
 		return rootNode;
+	}
+
+	public void lazyLoad() {
+		for (File child: fileSystemView.getFiles(file, true)) {
+			if (child.isDirectory()) {
+				FileTreeNode childNode = new FileTreeNode(child);
+				this.getChildren().add(childNode);
+			}
+		}
+		
 	}
 
 }
