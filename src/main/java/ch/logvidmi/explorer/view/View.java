@@ -1,8 +1,10 @@
 package ch.logvidmi.explorer.view;
 
+import ch.logvidmi.explorer.model.FileTreeNode;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -35,9 +37,19 @@ public class View extends Application{
 		layout = new BorderPane();
 		layout.setPadding(new Insets(PADDING));
 		
+		createNavigationPanel();
+		
+		
 		Scene scene = new Scene(layout, WIDTH, HEIGHT);
 		window.setScene(scene);
 		window.show();
+	}
+
+	private void createNavigationPanel() {
+		TreeView<String> fileTree = new TreeView<>(FileTreeNode.createFileTree());
+		fileTree.setShowRoot(false);
+		layout.setCenter(fileTree);
+		
 	}
 
 }
